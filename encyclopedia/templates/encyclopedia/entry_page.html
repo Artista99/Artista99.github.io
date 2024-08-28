@@ -1,0 +1,9 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ entry }}
+{% endblock %}
+
+{% block body %}
+    {{ content|safe }} <!--The safe filter tells Django that the content should be rendered as HTML without escaping it-->
+{% endblock %}

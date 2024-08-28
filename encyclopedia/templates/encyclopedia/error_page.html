@@ -1,0 +1,9 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Error Encyclopedia Entry Not Found
+{% endblock %}
+
+{% block body %}
+    <h1>Error - Encyclopedia Entry "{{ entry }}" Not Found</h1> <!--The safe filter tells Django that the content should be rendered as HTML without escaping it-->
+{% endblock %}
