@@ -47,3 +47,20 @@ def search(request):
             "query": query,
             "matching_entries": matching_entries
         })
+    
+def new_page(request):
+    if request.method == "POST":
+        title = request.POST.get("title").strip()
+        content = request.POST.get("content").strip()
+        
+        if title in util.list_entries():
+            return render(request, "encyclopedia/new_page.html", {
+                "error_message": "An entry with this title already exists. Please change the title and / or content.",
+                "title": title,
+                "content": content
+            })
+        
+        util.save_entry(title, content)
+        return redirect('encyclopedia:show_entry_page', entry=title)
+    
+    return render(request, "encyclopedia/new_page.html")    

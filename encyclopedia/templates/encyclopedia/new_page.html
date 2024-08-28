@@ -1,0 +1,36 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create a New Page
+{% endblock %}
+
+{% block body %}
+    <h1>Page to Add a New Entry to the Encyclopedia</h1>
+    
+    <!-- Display error message if it exists -->
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
+
+    <form action="{% url 'encyclopedia:new_page' %}" method="POST">
+        {% csrf_token %}
+        
+        <!-- Input for the title -->
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ title }}" required>
+        </div>
+        
+        <!-- Textarea for the content -->
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea class="form-control" id="content" name="content" rows="10" required>{{ content }}</textarea>
+        </div>
+        
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+{% endblock %}
