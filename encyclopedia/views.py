@@ -24,6 +24,7 @@ def show_entry_page(request, entry):
 
 def search(request):
     query = request.GET.get('q', '').strip() # Gets the value associeted with the key 'q'; the second argument ' ' is the default value
+    
     if not query: #if the questy is empty, redirect to the index page
         return redirect('encyclopedia:index')
     
@@ -55,7 +56,7 @@ def new_page(request):
         
         if title in util.list_entries():
             return render(request, "encyclopedia/new_page.html", {
-                "error_message": "An entry with this title already exists. Please change the title and / or content.",
+                "error_message": "An entry with this title already exists. Please change the title and adjust the content as needed.",
                 "title": title,
                 "content": content
             })
