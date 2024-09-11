@@ -6,4 +6,7 @@
 
 {% block body %}
     {{ content|safe }} <!--The safe filter tells Django that the content should be rendered as HTML without escaping it-->
+
+    <a href="{% url 'encyclopedia:edit_page' entry=entry %}">Edit the page {{ entry }}</a>
+
 {% endblock %}

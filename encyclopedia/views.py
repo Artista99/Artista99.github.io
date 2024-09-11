@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from . import util
 import markdown2
+import random
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -65,3 +66,27 @@ def new_page(request):
         return redirect('encyclopedia:show_entry_page', entry=title)
     
     return render(request, "encyclopedia/new_page.html")    
+
+def edit_page(request, entry):
+    content = util.get_entry(entry)
+    
+    if content is None:
+        return render(request, "encyclopedia/error_page.html", {
+            "entry": entry
+        })
+
+    if request.method == "POST":
+        content = request.POST.get("content").strip()
+        util.save_entry(entry, content)
+
+        return redirect('encyclopedia:show_entry_page', entry=entry)
+
+    return render(request, "encyclopedia/edit_page.html", {
+        "title": entry,
+        "content": content
+    })
+
+def random_page(request):
+    entries = util.list_entries()
+    entry = random.choice(entries)
+    return redirect('encyclopedia:show_entry_page', entry=entry)
